@@ -32,12 +32,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "request")
-public class Request
-{
+public class Request {
     @Id
     @GeneratedValue(
-        strategy= GenerationType.AUTO,
-        generator="native"
+        strategy = GenerationType.AUTO,
+        generator = "native"
     )
     @GenericGenerator(
         name = "native",
@@ -61,53 +60,43 @@ public class Request
     @JoinColumn(name = "allocated_spot", nullable = true)
     private ParkingSpace parkingSpace;
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Date getSubmissionTime()
-    {
+    public Date getSubmissionTime() {
         return submissionTime;
     }
 
-    public void setSubmissionTime(Date submissionTime)
-    {
+    public void setSubmissionTime(Date submissionTime) {
         this.submissionTime = submissionTime;
     }
 
-    public Set<ParkingLot> getParkingLots()
-    {
+    public Set<ParkingLot> getParkingLots() {
         return parkingLots;
     }
 
-    public void setParkingLots(Set<ParkingLot> parkingLots)
-    {
+    public void setParkingLots(Set<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
-    public Car getCar()
-    {
+    public Car getCar() {
         return car;
     }
 
-    public void setCar(Car car)
-    {
+    public void setCar(Car car) {
         this.car = car;
     }
 
-    public ParkingSpace getParkingSpace()
-    {
+    public ParkingSpace getParkingSpace() {
         return parkingSpace;
     }
 
-    public void setParkingSpace(ParkingSpace parkingSpace)
-    {
+    public void setParkingSpace(ParkingSpace parkingSpace) {
         this.parkingSpace = parkingSpace;
     }
 }

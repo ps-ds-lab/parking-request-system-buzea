@@ -15,16 +15,13 @@ import java.util.Optional;
 import org.hibernate.Session;
 import ro.utcluj.sd.entities.User;
 
-public class UserDao extends AbstractDao<User>
-{
+public class UserDao extends AbstractDao<User> {
 
-    public UserDao()
-    {
+    public UserDao() {
         super(User.class);
     }
 
-    public Optional<User> findByUsername(String username)
-    {
+    public Optional<User> findByUsername(String username) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.beginTransaction();
         Optional<User> user = currentSession.bySimpleNaturalId(User.class).loadOptional(username);

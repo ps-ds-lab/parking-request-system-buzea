@@ -12,7 +12,6 @@
 package ro.utcluj.sd.entities;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,12 +27,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "parking_space")
-public class ParkingSpace
-{
+public class ParkingSpace {
     @Id
     @GeneratedValue(
-        strategy= GenerationType.AUTO,
-        generator="native"
+        strategy = GenerationType.AUTO,
+        generator = "native"
     )
     @GenericGenerator(
         name = "native",
@@ -53,45 +51,35 @@ public class ParkingSpace
     @Column
     private long number;
 
-
-
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public ParkingLot getParkingLot()
-    {
+    public ParkingLot getParkingLot() {
         return parkingLot;
     }
 
-    public void setParkingLot(ParkingLot parkingLot)
-    {
+    public void setParkingLot(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
     }
 
-    public boolean isFree()
-    {
+    public boolean isFree() {
         return free;
     }
 
-    public void setFree(boolean free)
-    {
+    public void setFree(boolean free) {
         this.free = free;
     }
 
-    public long getNumber()
-    {
+    public long getNumber() {
         return number;
     }
 
-    public void setNumber(long number)
-    {
+    public void setNumber(long number) {
         this.number = number;
     }
 }

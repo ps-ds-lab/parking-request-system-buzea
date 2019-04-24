@@ -20,7 +20,7 @@ public class MyViewModel {
         this.theData = theData;
     }
 
-    public void addNewElement(){
+    public void addNewElement() {
         String val = "Element " + counter;
         theData.add(val);
         counter++;

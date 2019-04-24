@@ -15,15 +15,12 @@ import java.util.List;
 import org.hibernate.Session;
 import ro.utcluj.sd.entities.Request;
 
-public class RequestDao extends AbstractDao<Request>
-{
-    public RequestDao()
-    {
+public class RequestDao extends AbstractDao<Request> {
+    public RequestDao() {
         super(Request.class);
     }
 
-    public List<Request> findByParkingLotId(long parkingLotId)
-    {
+    public List<Request> findByParkingLotId(long parkingLotId) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.beginTransaction();
         List<Request> result = currentSession.createQuery("FROM Request r "

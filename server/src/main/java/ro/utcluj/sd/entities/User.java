@@ -26,12 +26,11 @@ import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "user")
-public class User
-{
+public class User {
     @Id
     @GeneratedValue(
-        strategy= GenerationType.AUTO,
-        generator="native"
+        strategy = GenerationType.AUTO,
+        generator = "native"
     )
     @GenericGenerator(
         name = "native",
@@ -49,43 +48,35 @@ public class User
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Car> cars = new HashSet<>();
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username)
-    {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public Set<Car> getCars()
-    {
+    public Set<Car> getCars() {
         return cars;
     }
 
-    public void setCars(Set<Car> cars)
-    {
+    public void setCars(Set<Car> cars) {
         this.cars = cars;
     }
 }

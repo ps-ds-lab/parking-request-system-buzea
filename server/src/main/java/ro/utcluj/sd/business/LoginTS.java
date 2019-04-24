@@ -14,22 +14,18 @@ package ro.utcluj.sd.business;
 import ro.utcluj.sd.dao.UserDao;
 import ro.utcluj.sd.dto.UserDTO;
 
-public class LoginTS implements AutoCloseable
-{
-    private UserDao userDao = new UserDao();
+public class LoginTS implements AutoCloseable {
     private final String username;
     private final String password;
+    private UserDao userDao = new UserDao();
 
-    public LoginTS(String username, String password)
-    {
+    public LoginTS(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public UserDTO execute()
-    {
-        if (username.equals("admin") && password.equals("admin"))
-        {
+    public UserDTO execute() {
+        if (username.equals("admin") && password.equals("admin")) {
             UserDTO dto = new UserDTO();
             dto.setUsername("Timotei Dolean");
             dto.setAdmin(true);
@@ -42,8 +38,7 @@ public class LoginTS implements AutoCloseable
             .orElse(null);
     }
 
-    private UserDTO toDTO()
-    {
+    private UserDTO toDTO() {
         UserDTO dto = new UserDTO();
         dto.setUsername(username);
         dto.setAdmin(false);
@@ -51,8 +46,7 @@ public class LoginTS implements AutoCloseable
     }
 
     @Override
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         userDao.close();
     }
 }

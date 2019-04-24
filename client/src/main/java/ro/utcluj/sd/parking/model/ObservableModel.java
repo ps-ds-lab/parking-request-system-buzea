@@ -6,7 +6,6 @@ import java.util.Observable;
 
 public class ObservableModel extends Observable {
 
-
     private List<String> theData = new ArrayList<>();
     private int counter;
 

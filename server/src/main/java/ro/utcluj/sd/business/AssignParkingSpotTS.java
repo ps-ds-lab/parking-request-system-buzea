@@ -18,18 +18,15 @@ import ro.utcluj.sd.entities.ParkingLot;
 import ro.utcluj.sd.entities.ParkingSpace;
 import ro.utcluj.sd.entities.Request;
 
-public class AssignParkingSpotTS implements AutoCloseable
-{
-    private RequestDao requestDao = new RequestDao();
+public class AssignParkingSpotTS implements AutoCloseable {
     private final long parkingLotId;
+    private RequestDao requestDao = new RequestDao();
 
-    public AssignParkingSpotTS(long parkingLotId)
-    {
+    public AssignParkingSpotTS(long parkingLotId) {
         this.parkingLotId = parkingLotId;
     }
 
-    public void execute()
-    {
+    public void execute() {
         List<Request> requests = requestDao.findByParkingLotId(parkingLotId);
         Optional<Request> unassignedRequest = getUnassignedRequest(requests);
 
@@ -44,24 +41,21 @@ public class AssignParkingSpotTS implements AutoCloseable
                         })));
     }
 
-    private Optional<Request> getUnassignedRequest(List<Request> requests)
-    {
+    private Optional<Request> getUnassignedRequest(List<Request> requests) {
         return requests
             .stream()
             .filter(request -> request.getParkingSpace() == null) //not assigned yet
             .findFirst();
     }
 
-    private Optional<ParkingSpace> findFirstFreeParkingSpot(ParkingLot lot)
-    {
+    private Optional<ParkingSpace> findFirstFreeParkingSpot(ParkingLot lot) {
         return lot.getParkingSpaces()
             .stream()
             .filter(ParkingSpace::isFree)
             .findAny();
     }
 
-    private Optional<ParkingLot> findLot(Request request)
-    {
+    private Optional<ParkingLot> findLot(Request request) {
         return request.getParkingLots()
             .stream()
             .filter(lot -> lot.getId() == parkingLotId)
@@ -69,8 +63,7 @@ public class AssignParkingSpotTS implements AutoCloseable
     }
 
     @Override
-    public void close() throws Exception
-    {
+    public void close() throws Exception {
         requestDao.close();
     }
 }

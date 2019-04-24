@@ -11,34 +11,28 @@
  ************************************************************************/
 package ro.utcluj.sd.dto;
 
-public class UserDTO
-{
+public class UserDTO {
     private String username;
     private boolean admin = false;
 
-    public String getUsername()
-    {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username)
-    {
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public boolean isAdmin()
-    {
+    public boolean isAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin)
-    {
+    public void setAdmin(boolean admin) {
         this.admin = admin;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "User: " + username + " (admin=" + admin + ')';
     }
 }

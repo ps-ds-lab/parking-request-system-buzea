@@ -18,7 +18,6 @@ import ro.utcluj.sd.parking.command.AddElementCommand;
 import ro.utcluj.sd.parking.model.ObservableModel;
 import ro.utcluj.sd.parking.viewmodel.MyViewModel;
 
-
 public class MyController implements Initializable, Observer {
 
     @FXML
@@ -32,7 +31,6 @@ public class MyController implements Initializable, Observer {
 
     private MyViewModel myViewModel;
     private ObservableModel observableModel;
-
 
     public void AddElementInFirstList(ActionEvent actionEvent) {
         new AddElementCommand(myViewModel).execute();

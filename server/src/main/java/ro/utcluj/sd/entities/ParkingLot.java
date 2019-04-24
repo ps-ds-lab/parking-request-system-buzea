@@ -26,8 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "parking_lot")
-public class ParkingLot
-{
+public class ParkingLot {
     @Id
     @GeneratedValue(
         strategy = GenerationType.AUTO,
@@ -45,33 +44,27 @@ public class ParkingLot
     @Column
     private String address;
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Set<ParkingSpace> getParkingSpaces()
-    {
+    public Set<ParkingSpace> getParkingSpaces() {
         return parkingSpaces;
     }
 
-    public void setParkingSpaces(Set<ParkingSpace> parkingSpaces)
-    {
+    public void setParkingSpaces(Set<ParkingSpace> parkingSpaces) {
         this.parkingSpaces = parkingSpaces;
     }
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address)
-    {
+    public void setAddress(String address) {
         this.address = address;
     }
 }

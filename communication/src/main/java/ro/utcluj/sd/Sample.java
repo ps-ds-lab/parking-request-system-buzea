@@ -11,6 +11,5 @@
  ************************************************************************/
 package ro.utcluj.sd;
 
-public class Sample
-{
+public class Sample {
 }

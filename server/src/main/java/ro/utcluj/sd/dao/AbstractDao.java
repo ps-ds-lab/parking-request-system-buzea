@@ -15,26 +15,22 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import ro.utcluj.sd.util.HibernateUtil;
 
-public abstract class AbstractDao<T> implements AutoCloseable
-{
+public abstract class AbstractDao<T> implements AutoCloseable {
     protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private Class clazz;
 
-    protected AbstractDao(Class clazz)
-    {
+    protected AbstractDao(Class clazz) {
         this.clazz = clazz;
     }
 
-    public void save(T obj)
-    {
+    public void save(T obj) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.beginTransaction();
         currentSession.saveOrUpdate(obj);
         currentSession.getTransaction().commit();
     }
 
-    public T findById(long id)
-    {
+    public T findById(long id) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.beginTransaction();
         Object value = currentSession.get(clazz, id);
@@ -43,8 +39,7 @@ public abstract class AbstractDao<T> implements AutoCloseable
     }
 
     @Override
-    public void close()
-    {
+    public void close() {
         //sessionFactory.getCurrentSession().close();
         sessionFactory.close();
     }

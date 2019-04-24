@@ -25,12 +25,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "car")
-public class Car
-{
+public class Car {
     @Id
     @GeneratedValue(
-        strategy= GenerationType.AUTO,
-        generator="native"
+        strategy = GenerationType.AUTO,
+        generator = "native"
     )
     @GenericGenerator(
         name = "native",
@@ -46,33 +45,27 @@ public class Car
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id)
-    {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getVin()
-    {
+    public String getVin() {
         return vin;
     }
 
-    public void setVin(String vin)
-    {
+    public void setVin(String vin) {
         this.vin = vin;
     }
 
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 }

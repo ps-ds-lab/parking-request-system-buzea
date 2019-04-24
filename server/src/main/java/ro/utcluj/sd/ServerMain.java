@@ -23,26 +23,20 @@ import ro.utcluj.sd.entities.Request;
 import ro.utcluj.sd.entities.User;
 import ro.utcluj.sd.util.HibernateUtil;
 
-public class ServerMain
-{
-    public static void main(String[] args)
-    {
+public class ServerMain {
+    public static void main(String[] args) {
         setupData();
         try (AssignParkingSpotTS assignParkingSpot = new AssignParkingSpotTS(1);
-            LoginTS login = new LoginTS("Vlad", "Vlad"))
-        {
+            LoginTS login = new LoginTS("Vlad", "Vlad")) {
             System.out.println(login.execute());
             assignParkingSpot.execute();
             System.in.read();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void setupData()
-    {
+    private static void setupData() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
 
@@ -76,8 +70,7 @@ public class ServerMain
         transaction.commit();
     }
 
-    private static ParkingLot createLotWithFreeSpace(Session session, long id1, long id2)
-    {
+    private static ParkingLot createLotWithFreeSpace(Session session, long id1, long id2) {
         ParkingLot p1 = new ParkingLot();
         p1.setId(id1);
         session.save(p1);

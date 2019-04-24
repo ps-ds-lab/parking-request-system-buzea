@@ -16,10 +16,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import ro.utcluj.sd.dto.UserDTO;
+import ro.utcluj.sd.parking.command.LoginCommand;
 
-public class LoginController
-{
+public class LoginController {
     @FXML
     public PasswordField password;
     @FXML
@@ -27,13 +26,7 @@ public class LoginController
     @FXML
     public Label label;
 
-    public void login(ActionEvent actionEvent)
-    {
-        UserDTO vlad = new UserDTO();
-        vlad.setAdmin(true);
-        vlad.setUsername("I <3 Software Design!");
-
-        label.setText(vlad.toString());
-        label.setVisible(!label.isVisible());
+    public void login(ActionEvent actionEvent) {
+        new LoginCommand(label).execute();
     }
 }
