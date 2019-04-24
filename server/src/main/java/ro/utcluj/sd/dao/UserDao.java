@@ -11,28 +11,24 @@
  ************************************************************************/
 package ro.utcluj.sd.dao;
 
-import java.util.List;
+import java.util.Optional;
 import org.hibernate.Session;
-import ro.utcluj.sd.entities.Request;
+import ro.utcluj.sd.entities.User;
 
-public class RequestDao extends AbstractDao<Request>
+public class UserDao extends AbstractDao<User>
 {
-    public RequestDao()
+
+    public UserDao()
     {
-        super(Request.class);
+        super(User.class);
     }
 
-    public List<Request> findByParkingLotId(long parkingLotId)
+    public Optional<User> findByUsername(String username)
     {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.beginTransaction();
-        List<Request> result = currentSession.createQuery("FROM Request r "
-            + " join fetch r.parkingLots lot"
-            + " where lot.id = :parkingLotId"
-            + " order by r.submissionTime", Request.class)
-            .setParameter("parkingLotId", parkingLotId)
-            .list();
+        Optional<User> user = currentSession.bySimpleNaturalId(User.class).loadOptional(username);
         currentSession.getTransaction().commit();
-        return result;
+        return user;
     }
 }

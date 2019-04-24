@@ -22,6 +22,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "user")
@@ -39,6 +40,7 @@ public class User
     private Long id;
 
     @Column
+    @NaturalId(mutable = true)
     private String username;
 
     @Column

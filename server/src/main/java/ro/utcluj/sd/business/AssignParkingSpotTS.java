@@ -18,12 +18,12 @@ import ro.utcluj.sd.entities.ParkingLot;
 import ro.utcluj.sd.entities.ParkingSpace;
 import ro.utcluj.sd.entities.Request;
 
-public class AssignParkingSpot implements AutoCloseable
+public class AssignParkingSpotTS implements AutoCloseable
 {
     private RequestDao requestDao = new RequestDao();
     private final long parkingLotId;
 
-    public AssignParkingSpot(long parkingLotId)
+    public AssignParkingSpotTS(long parkingLotId)
     {
         this.parkingLotId = parkingLotId;
     }

@@ -14,7 +14,8 @@ package ro.utcluj.sd;
 import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import ro.utcluj.sd.business.AssignParkingSpot;
+import ro.utcluj.sd.business.AssignParkingSpotTS;
+import ro.utcluj.sd.business.LoginTS;
 import ro.utcluj.sd.entities.Car;
 import ro.utcluj.sd.entities.ParkingLot;
 import ro.utcluj.sd.entities.ParkingSpace;
@@ -22,14 +23,17 @@ import ro.utcluj.sd.entities.Request;
 import ro.utcluj.sd.entities.User;
 import ro.utcluj.sd.util.HibernateUtil;
 
-public class Main
+public class ServerMain
 {
     public static void main(String[] args)
     {
         setupData();
-        try (AssignParkingSpot assignParkingSpot = new AssignParkingSpot(1))
+        try (AssignParkingSpotTS assignParkingSpot = new AssignParkingSpotTS(1);
+            LoginTS login = new LoginTS("Vlad", "Vlad"))
         {
+            System.out.println(login.execute());
             assignParkingSpot.execute();
+            System.in.read();
         }
         catch (Exception e)
         {
@@ -45,6 +49,8 @@ public class Main
         User u1 = new User();
         u1.setId(1L);
         session.save(u1);
+        u1.setUsername("Vlad");
+        u1.setPassword("Vlad");
 
         Car c1 = new Car();
         c1.setId(1L);
