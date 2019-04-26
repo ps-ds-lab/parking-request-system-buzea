@@ -11,29 +11,50 @@
  ************************************************************************/
 package ro.utcluj.sd;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import ro.utcluj.sd.business.AssignParkingSpotTS;
 import ro.utcluj.sd.business.LoginTS;
+import ro.utcluj.sd.dto.UserDTO;
 import ro.utcluj.sd.entities.Car;
 import ro.utcluj.sd.entities.ParkingLot;
 import ro.utcluj.sd.entities.ParkingSpace;
 import ro.utcluj.sd.entities.Request;
 import ro.utcluj.sd.entities.User;
-import ro.utcluj.sd.util.HibernateUtil;
+import ro.utcluj.sd.dao.util.HibernateUtil;
 
 public class ServerMain {
+
     public static void main(String[] args) {
+        Gson gson = new GsonBuilder().create();
+
+        demoGson(gson);
         setupData();
-        try (AssignParkingSpotTS assignParkingSpot = new AssignParkingSpotTS(1);
-            LoginTS login = new LoginTS("Vlad", "Vlad")) {
-            System.out.println(login.execute());
-            assignParkingSpot.execute();
-            System.in.read();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        Server.getInstance().start();
+    }
+
+    private static void demoGson(Gson gson) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername("admin");
+        userDTO.setAdmin(true);
+        String json = gson.toJson(userDTO);
+        System.out.println(json);
+
+        String secondUserJson = "{\"username\":\"vlad\",\"admin\":false}";
+        UserDTO secondUserDTO = gson.fromJson(secondUserJson, UserDTO.class);
+        System.out.println(secondUserDTO);
     }
 
     private static void setupData() {

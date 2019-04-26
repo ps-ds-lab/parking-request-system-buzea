@@ -27,6 +27,6 @@ public class LoginController {
     public Label label;
 
     public void login(ActionEvent actionEvent) {
-        new LoginCommand(label).execute();
+        new LoginCommand(label, username.getText(), password.getText()).execute();
     }
 }

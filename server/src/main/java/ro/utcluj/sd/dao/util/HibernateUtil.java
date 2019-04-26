@@ -9,7 +9,7 @@
  * not be copied, modified, distributed, or otherwise disseminated, in
  * whole or part, without the express written permission of Ullink.
  ************************************************************************/
-package ro.utcluj.sd.util;
+package ro.utcluj.sd.dao.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;

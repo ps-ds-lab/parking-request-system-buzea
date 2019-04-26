@@ -13,10 +13,10 @@ package ro.utcluj.sd.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ro.utcluj.sd.util.HibernateUtil;
+import ro.utcluj.sd.dao.util.HibernateUtil;
 
 public abstract class AbstractDao<T> implements AutoCloseable {
-    protected SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    protected static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private Class clazz;
 
     protected AbstractDao(Class clazz) {
@@ -40,7 +40,6 @@ public abstract class AbstractDao<T> implements AutoCloseable {
 
     @Override
     public void close() {
-        //sessionFactory.getCurrentSession().close();
         sessionFactory.close();
     }
 }

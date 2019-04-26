@@ -11,7 +11,7 @@
  ************************************************************************/
 package ro.utcluj.sd.dto;
 
-public class UserDTO {
+public class UserDTO implements Dto {
     private String username;
     private boolean admin = false;
 
