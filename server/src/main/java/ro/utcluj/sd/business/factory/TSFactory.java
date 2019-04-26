@@ -14,8 +14,8 @@ public class TSFactory {
                 String password = requestToServer.getParams().get("password");
                 return new LoginTS(username, password);
 
-            case "subscribeToNotification":
-//                clientList.add(clientSocket);
+            case "assignParkingSpot":
+
             default:
                 return null;
         }

@@ -18,18 +18,20 @@ import java.util.List;
 
 public class Server {
 
-    private static List<Socket> observers;
     private static Server instance;
-    private final Gson gson;
 
-    public static Server getInstance() {
-        if (instance == null) instance = new Server();
-        return instance;
-    }
+    private final Gson gson;
+    private List<Socket> observers;
+
 
     private Server() {
         observers = Collections.synchronizedList(new ArrayList<>());
         gson = new GsonBuilder().create();
+    }
+
+    public static Server getInstance() {
+        if (instance == null) instance = new Server();
+        return instance;
     }
 
     public void start() {
@@ -54,6 +56,12 @@ public class Server {
             String jsonFromClient = in.readLine(); // if you use pretty print, you need to read multiple lines
             RequestToServer requestToServer = gson.fromJson(jsonFromClient, RequestToServer.class);
 
+            String command = requestToServer.getParams().get("command");
+            if ("subscribeToNotification".equals(command)) { //special case
+                observers.add(clientSocket);
+                return;
+            }
+
             // process request
             TransactionScript transactionScript = TSFactory.create(requestToServer);
             Dto result = transactionScript.execute();
@@ -67,8 +75,7 @@ public class Server {
         }
     }
 
-    public static synchronized List<Socket> getObservers() {
+    public List<Socket> getObservers() {
         return observers;
     }
-
 }
