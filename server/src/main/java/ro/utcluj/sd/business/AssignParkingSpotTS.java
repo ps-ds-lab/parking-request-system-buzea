@@ -33,16 +33,23 @@ public class AssignParkingSpotTS implements AutoCloseable, TransactionScript {
         Optional<Request> unassignedRequest = getUnassignedRequest(requests);
 
         unassignedRequest
-                .ifPresent(request ->
-                        findLot(request)
-                                .ifPresent(lot ->
-                                        findFirstFreeParkingSpot(lot)
-                                                .ifPresent(space -> {
-                                                    request.setParkingSpace(space);
-                                                    space.setFree(false);
-                                                    requestDao.save(request);
-                                                })));
+                .ifPresent(request -> assignFirstFreeParkingLot(request));
+
+        //TODO iterate through all observers and send a NotificationDTO
+
+        //TODO Return a requestDTO to the Client
         return null;
+    }
+
+    private void assignFirstFreeParkingLot(Request request) {
+        findLot(request)
+                .ifPresent(lot ->
+                        findFirstFreeParkingSpot(lot)
+                                .ifPresent(space -> {
+                                    request.setParkingSpace(space);
+                                    space.setFree(false);
+                                    requestDao.save(request);
+                                }));
     }
 
     private Optional<Request> getUnassignedRequest(List<Request> requests) {

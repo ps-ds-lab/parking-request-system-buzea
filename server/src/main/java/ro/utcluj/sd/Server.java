@@ -49,8 +49,9 @@ public class Server {
 
     private void serveRequest(Socket clientSocket) {
         System.out.println("Serving Request");
-        try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
+        try {
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
             //receive request data
             String jsonFromClient = in.readLine(); // if you use pretty print, you need to read multiple lines
@@ -59,7 +60,7 @@ public class Server {
             String command = requestToServer.getParams().get("command");
             if ("subscribeToNotification".equals(command)) { //special case
                 observers.add(clientSocket);
-                return;
+                return; // avoids closing the socket
             }
 
             // process request
@@ -68,13 +69,20 @@ public class Server {
 
             //send response to client
             out.println(gson.toJson(result));
-            clientSocket.close();
 
+            //close
+            in.close();
+            out.close();
+            clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Getter to be used on {@link ro.utcluj.sd.business.AssignParkingSpotTS}
+     *
+     */
     public List<Socket> getObservers() {
         return observers;
     }
