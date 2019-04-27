@@ -11,21 +11,30 @@
  ************************************************************************/
 package ro.utcluj.sd.business;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import ro.utcluj.sd.Server;
 import ro.utcluj.sd.dao.RequestDao;
 import ro.utcluj.sd.dto.Dto;
+import ro.utcluj.sd.dto.NotificationDTO;
 import ro.utcluj.sd.entities.ParkingLot;
 import ro.utcluj.sd.entities.ParkingSpace;
 import ro.utcluj.sd.entities.Request;
 
-public class AssignParkingSpotTS implements AutoCloseable, TransactionScript {
+public class AssignParkingSpotTS implements TransactionScript {
     private final long parkingLotId;
+    private final Gson gson;
     private RequestDao requestDao = new RequestDao();
 
     public AssignParkingSpotTS(long parkingLotId) {
         this.parkingLotId = parkingLotId;
+        this.gson = new GsonBuilder().create();
     }
 
     public Dto execute() {
@@ -42,7 +51,27 @@ public class AssignParkingSpotTS implements AutoCloseable, TransactionScript {
                                                     space.setFree(false);
                                                     requestDao.save(request);
                                                 })));
+
+        Server.getInstance()
+                .getObservers()
+                .forEach(this::sendNotification);
+
         return null;
+    }
+
+    private void sendNotification(Socket socket) {
+        if (socket.isClosed()) {
+            return;
+        }
+        try {
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            NotificationDTO notification = new NotificationDTO();
+            notification.setMessage("Alert! Alert! Alert! Bi-doo! Bi-doo");
+            String json = gson.toJson(notification);
+            out.println(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private Optional<Request> getUnassignedRequest(List<Request> requests) {
@@ -64,10 +93,5 @@ public class AssignParkingSpotTS implements AutoCloseable, TransactionScript {
                 .stream()
                 .filter(lot -> lot.getId() == parkingLotId)
                 .findAny();
-    }
-
-    @Override
-    public void close() throws Exception {
-        requestDao.close();
     }
 }

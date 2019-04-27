@@ -58,9 +58,11 @@ public class LoginCommand implements Command<String> {
                 label.setText("Invalid Credentials");
             } else if (userDTO.isAdmin()) {
                 label.setText(userDTO.toString());
+                new SubscribeCommand().execute();
                 // go to admin page
             } else {
                 label.setText(userDTO.toString());
+                new SubscribeCommand().execute();
                 //go to user page
             }
             label.setVisible(true);

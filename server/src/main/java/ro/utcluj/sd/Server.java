@@ -49,9 +49,9 @@ public class Server {
 
     private void serveRequest(Socket clientSocket) {
         System.out.println("Serving Request");
-        try (PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
-
+        try {
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             //receive request data
             String jsonFromClient = in.readLine(); // if you use pretty print, you need to read multiple lines
             RequestToServer requestToServer = gson.fromJson(jsonFromClient, RequestToServer.class);
@@ -59,8 +59,9 @@ public class Server {
             String command = requestToServer.getParams().get("command");
             if ("subscribeToNotification".equals(command)) { //special case
                 observers.add(clientSocket);
-                return;
+                return; // Return here and avoid socket.close()
             }
+            //TODO: add support for unsubscribe
 
             // process request
             TransactionScript transactionScript = TSFactory.create(requestToServer);

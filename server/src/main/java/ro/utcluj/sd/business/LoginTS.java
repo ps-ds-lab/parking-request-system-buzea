@@ -14,7 +14,7 @@ package ro.utcluj.sd.business;
 import ro.utcluj.sd.dao.UserDao;
 import ro.utcluj.sd.dto.UserDTO;
 
-public class LoginTS implements AutoCloseable, TransactionScript {
+public class LoginTS implements TransactionScript {
     private final String username;
     private final String password;
     private UserDao userDao = new UserDao();
@@ -43,10 +43,5 @@ public class LoginTS implements AutoCloseable, TransactionScript {
         dto.setUsername(username);
         dto.setAdmin(false);
         return dto;
-    }
-
-    @Override
-    public void close() {
-        userDao.close();
     }
 }
