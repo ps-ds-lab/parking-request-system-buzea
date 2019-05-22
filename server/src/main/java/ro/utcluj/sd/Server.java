@@ -59,7 +59,7 @@ public class Server {
             String command = requestToServer.getParams().get("command");
             if ("subscribeToNotification".equals(command)) { //special case
                 observers.add(clientSocket);
-                return; // Return here and avoid socket.close()
+                return; // avoids closing the socket
             }
             //TODO: add support for unsubscribe
 
@@ -69,13 +69,20 @@ public class Server {
 
             //send response to client
             out.println(gson.toJson(result));
-            clientSocket.close();
 
+            //close
+            in.close();
+            out.close();
+            clientSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Getter to be used on {@link ro.utcluj.sd.business.AssignParkingSpotTS}
+     *
+     */
     public List<Socket> getObservers() {
         return observers;
     }

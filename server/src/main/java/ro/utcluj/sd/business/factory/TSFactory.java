@@ -19,7 +19,6 @@ public class TSFactory {
                 String parkingLotIdString = requestToServer.getParams().get("parkingLotId");
                 long parkingLotId = Long.parseLong(parkingLotIdString);
                 return new AssignParkingSpotTS(parkingLotId);
-
             default:
                 return null;
         }

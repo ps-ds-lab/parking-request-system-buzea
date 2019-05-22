@@ -1,2 +1,1 @@
-# Congrats! You have found an easter Egg!
-PM me on slack to get your reward!
+# You could say this is an example
